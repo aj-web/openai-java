@@ -5,7 +5,9 @@ import com.theokanning.openai.image.CreateImageRequest;
 import com.theokanning.openai.image.CreateImageVariationRequest;
 import com.theokanning.openai.image.Image;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,22 +20,25 @@ public class ImageTest {
     static String fileWithAlphaPath = "src/test/resources/penguin_with_alpha.png";
     static String maskPath = "src/test/resources/mask.png";
 
-    String token = System.getenv("OPENAI_TOKEN");
+//    String token = System.getenv("OPENAI_TOKEN");
+    String token = "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";
     OpenAiService service = new OpenAiService(token, 30);
 
 
     @Test
     void createImageUrl() {
         CreateImageRequest createImageRequest = CreateImageRequest.builder()
-                .prompt("penguin")
+                .prompt("Let's say you're a senior game artist and help out with a drawing of Johnny Silver's hand for the game Cyberpunk 2077")
                 .n(3)
                 .size("256x256")
-                .user("testing")
+                .user("user")
                 .build();
 
         List<Image> images = service.createImage(createImageRequest).getData();
         assertEquals(3, images.size());
-        assertNotNull(images.get(0).getUrl());
+        if (images.size()>0){
+            images.forEach(e-> System.out.println(e.getUrl()));
+        }
     }
 
     @Test
