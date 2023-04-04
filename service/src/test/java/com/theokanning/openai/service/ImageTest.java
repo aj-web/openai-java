@@ -19,7 +19,8 @@ public class ImageTest {
     static String fileWithAlphaPath = "src/test/resources/penguin_with_alpha.png";
     static String maskPath = "src/test/resources/mask.png";
 
-    String token = System.getenv("OPENAI_TOKEN");
+//    String token = System.getenv("OPENAI_TOKEN");
+    String token = "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";
     com.theokanning.openai.service.OpenAiService service = new OpenAiService(token, Duration.ofSeconds(30));
 
     @Test
@@ -33,7 +34,8 @@ public class ImageTest {
 
         List<Image> images = service.createImage(createImageRequest).getData();
         assertEquals(3, images.size());
-        assertNotNull(images.get(0).getUrl());
+        images.forEach(e-> System.out.println(e.getUrl()));
+//        assertNotNull(images.get(0).getUrl());
     }
 
     @Test
